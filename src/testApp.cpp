@@ -34,7 +34,6 @@ void testApp::update(){
     
     //_______
     int numPixels = 640 * 480;
-    // codeeeeee
     
     unsigned char* blobPixels = blobImage.getPixels();
     unsigned char* irPixels = irImage.getPixels();

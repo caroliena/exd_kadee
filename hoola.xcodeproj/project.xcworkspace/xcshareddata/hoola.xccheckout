@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>44DF8025-7203-4CB4-94D6-85DBB1BC9BAC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>hoola</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8653979D-59BB-456B-9384-A7C26AE76E90</key>
+		<string>https://github.com/caroliena/exd_kadee.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>hoola.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8653979D-59BB-456B-9384-A7C26AE76E90</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/caroliena/exd_kadee.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8653979D-59BB-456B-9384-A7C26AE76E90</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8653979D-59BB-456B-9384-A7C26AE76E90</string>
+			<key>IDESourceControlWCCName</key>
+			<string>exd_kadee</string>
+		</dict>
+	</array>
+</dict>
+</plist>
