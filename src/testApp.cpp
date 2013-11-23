@@ -3,7 +3,9 @@
 //--------------------------------------------------------------
 void testApp::setup() {
     
-    flagBlob = false;
+    prevBlob = 0;
+    rotations = 0;
+    prevSeconden = 0;
     
     openNIContext.setup();
 	depthGenerator.setup(&openNIContext);
@@ -13,8 +15,9 @@ void testApp::setup() {
     ofSetBackgroundAuto(false);
 	ofBackground(0, 0, 0);
     
-    nearThreshold = 1500;
-	farThreshold  = 2000;
+    threshold = 100;
+    nearThreshold = 2000;
+	farThreshold  = 2250;
      
 }
 
@@ -26,35 +29,35 @@ void testApp::update(){
     irGenerator.update();
     
     irImage.setFromPixels( irGenerator.ir_pixels , 640, 480);
-    irImage.threshold(150);
+    irImage.threshold(threshold);
     
     // demo getting depth pixels directly from depth gen
-    depthRangeMask.setFromPixels(depthGenerator.getDepthPixels(nearThreshold, farThreshold),
-                                 depthGenerator.getWidth(), depthGenerator.getHeight(), OF_IMAGE_GRAYSCALE);
+    // depthRangeMask.setFromPixels(depthGenerator.getDepthPixels(nearThreshold, farThreshold),
+                                 //depthGenerator.getWidth(), depthGenerator.getHeight(), OF_IMAGE_GRAYSCALE);
     
     //_______
     int numPixels = 640 * 480;
-    // codeeeeee
     
     unsigned char* blobPixels = blobImage.getPixels();
     unsigned char* irPixels = irImage.getPixels();
     
-    
-    /*
-    for( int i = 0; i < numPixels ; i++ ){
-        
-        if( irPixels[i] <= 240){
-            blobPixels[i] = 0;
-        }else{
-            blobPixels[i] = 255;
-        }
-    }
-     */
     irImage.setFromPixels((const unsigned char*) irPixels, 640, 480);
-    contourFinder.findContours(irImage, 50, numPixels/3, 1, false);
+    contourFinder.findContours(irImage, 100, numPixels/3, 1, false);
+    
+    // om te zien of er geroteerd wordt
+    if( prevBlob != contourFinder.nBlobs ){
+        rotations++;
+        prevBlob = contourFinder.nBlobs;
+        prevSeconden = ofGetElapsedTimeMillis();
+    }
+    
+    // Zien of dat de hoepel ni gevallen is
+    if( ( ofGetElapsedTimeMillis() - prevSeconden ) >= 3000 ){
+        ofLog() << "hoepel gevallen";
+    }
     
     ofLog() << "aantal blobs: " << contourFinder.nBlobs;
-    
+    ofLog() << "aantal rotaties: " << rotations;
     
 }
 
@@ -62,16 +65,28 @@ void testApp::update(){
 void testApp::draw(){
     
     ofSetColor(255, 255, 255);
-    
-    //blobImage.draw(640,0,640,480);
     irImage.draw(0, 0, 640, 480);
     
-	//depthRangeMask.draw(0, 480, 320, 240);	// can use this with openCV to make masks, find contours etc when not dealing with openNI 'User' like objects
+    //depthRangeMask.draw(0, 0, 640, 480);
     
     for(int i = 0; i < contourFinder.blobs.size();i++){
-        
         contourFinder.blobs[i].draw(0,0);
     }
 
+    ofSetColor(255, 255, 255);
+	stringstream reportStream;
+    reportStream.str(std::string());
+    reportStream << "num blobs found " << contourFinder.nBlobs<< endl;
+    ofDrawBitmapString(reportStream.str(), 20, 652);
     
+}
+
+//--------------------------------------------------------------
+void testApp::keyPressed(int key){
+	if(key == OF_KEY_UP) {
+		irImage.threshold(++threshold);
+		
+	} else if(key == OF_KEY_DOWN) {
+		irImage.threshold(--threshold);
+	}
 }

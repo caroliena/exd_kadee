@@ -4,7 +4,7 @@
 #include "ofxOpenCv.h"
 #include "ofxOpenNi.h"
 
-#define USE_IR
+//#define USE_IR
 
 class testApp : public ofBaseApp{
 
@@ -20,10 +20,10 @@ class testApp : public ofBaseApp{
     
         ofxCvGrayscaleImage irImage;
     
-        int nearThreshold, farThreshold;
+        int nearThreshold, farThreshold, threshold, rotations, prevBlob, prevSeconden;
+    void keyPressed(int key);
  
     private:
-        bool flagBlob;
         ofxCvGrayscaleImage blobImage;
         ofxCvContourFinder contourFinder;
 	
